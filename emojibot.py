@@ -46,14 +46,12 @@ async def on_ready():
     print('All done!')
     await client.logout()
 
-# if using 2FA on your account (like you should), use this client.run. to get
-# your token, press CTRL+SHIFT+I in discord. Navigate to the 'Application' tab.
-# Click the drop down for 'Local Storage' and select the item that opens up. At
-# the bottom of the column labeled 'Key' there is a field that says token. your
-# token is in the right column. obviously you should never share this with anyone
-client.run('token', bot=False)
 
-# if not using 2FA, use this version of client.run by commenting out the
-# previous one with # and uncommenting this one by deleting the #. i hope you
-# can figure out what to put in each field
-#client.run('email', 'password')
+if len(sys.argv) == 2:
+    client.run(sys.argv[1], bot=False)
+elif len(sys.argv) == 3:
+    client.run(sys.argv[1], sys.argv[2])
+else:
+    print('Invalid number of arguments. If using 2FA, your token is required.'
+          'Otherwise, provide your email and password. See https://github.com/qwertyboy/emoji-dumper'
+          ' for more details.')
