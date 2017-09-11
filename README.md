@@ -3,6 +3,10 @@ This is a very simple Discord self-bot for saving the emojis of the servers you 
 
 The only required library is [discord.py].
 
+The bot will log in as you and go through each server you are in that has emotes
+and download each one. They are stored in the directory you ran the bot from
+under `Emojis\Server Name`.
+
 To run the bot execute the following in your terminal of choice:
 ```bash
 python emojibot.py [token]
@@ -21,10 +25,6 @@ See the image below for clarification.
 
 If not using 2FA, use the second option. You can probably figure out what to put
 in each field.
-
-The bot will log in as you and go through each server you are in that has emotes
-and download each one. They are stored in the directory you ran the bot from
-under `Emojis\Server Name`.
 
 
 [discord.py]: https://github.com/Rapptz/discord.py
