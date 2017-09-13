@@ -20,7 +20,7 @@ async def on_ready():
     print('Connected servers:')
     for server in client.servers:
         # print out server names and number of emojis
-        print('\t%s (%s)' % (server.name.encode(encoding, 'replace').decode(encoding), server.id))
+        print('\t%s (%s)' % (str(server.name).encode(encoding, 'replace').decode(encoding), server.id))
         emojiNum = len(server.emojis)
         print('\t\tEmoji Count: %s' % emojiNum)
 
@@ -48,10 +48,17 @@ async def on_ready():
 
 
 if len(sys.argv) == 2:
-    client.run(sys.argv[1], bot=False)
+    try:
+        client.run(sys.argv[1], bot=False)
+    except discord.LoginFailure:
+        print('oops!')
+        client.logout()
 elif len(sys.argv) == 3:
-    client.run(sys.argv[1], sys.argv[2])
+    try:
+        client.run(sys.argv[1], sys.argv[2])
+    except discord.LoginFailure:
+        print('oops2!')
 else:
-    print('Invalid number of arguments. If using 2FA, your token is required.'
+    print('Invalid number of arguments. If using 2FA, your token is required. '
           'Otherwise, provide your email and password. See https://github.com/qwertyboy/emoji-dumper'
           ' for more details.')
