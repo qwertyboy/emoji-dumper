@@ -1,4 +1,5 @@
 Modified for Linux paths, and newer versions of discord.py.
+Slightly changed some other things as well.
 
 ----
 
