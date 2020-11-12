@@ -1,3 +1,9 @@
+Modified for Linux paths, and newer versions of discord.py.
+
+----
+
+Original README:
+
 ## 💩 emoji-dumper 💩
 This is a very simple Discord self-bot for saving the emojis of the servers you are on.
 
