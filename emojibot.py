@@ -4,9 +4,6 @@ import os
 import sys
 import urllib.request
 
-# get character encoding for printing to the terminal
-encoding = sys.stdout.encoding
-
 # create a client
 client = discord.Client()
 
