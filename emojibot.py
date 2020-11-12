@@ -4,31 +4,40 @@ import os
 import sys
 import urllib.request
 
+# get character encoding for printing to the terminal
+encoding = sys.stdout.encoding
+
 # create a client
 client = discord.Client()
+
+# create a folder for storing the emojis
+if not os.path.exists('Emojis'):
+	os.makedirs('Emojis')
 
 @client.event
 async def on_ready():
 	print('Logged in as \"%s\" with ID %s' % (client.user.name, client.user.id))
+	print('Connected guilds:')
 	for guild in client.guilds:
-		guildName = str(guild.name)
-		emojiNum = len(guild.emojis)
 		# print out guild names and number of emojis
-		print(guildName + ': ')
-		print('Emoji count: ' + str(emojiNum))
+		print('\t%s (%s)' % (str(guild.name).encode(encoding, 'replace').decode(encoding), guild.id))
+		emojiNum = len(guild.emojis)
+		print('\t\tEmoji Count: %s' % emojiNum)
+
 		# make a folder for each folder if it actually has emojis, striping out invalid characters
-		folderName = 'Emojis - ' + guildName.translate({ord(c): None for c in '/<>:"|?*'})
+		folderName = 'Emojis\\' + guild.name.translate({ord(c): None for c in '/<>:"\\|?*'})
 		if emojiNum > 0:
 			if not os.path.exists(folderName):
 				os.makedirs(folderName)
+
 			# download the emojis
-			print('Downloading emojis...')
+			print('\t\tDownloading emojis...')
 			for emoji in guild.emojis:
 				# create a file name
 				if emoji.animated:
-					fileName = folderName + '/' + emoji.name + '.gif'
+					fileName = folderName + '\\' + emoji.name + '.gif'
 				else:
-					fileName = folderName + '/' + emoji.name + '.png'
+					fileName = folderName + '\\' + emoji.name + '.png'
 				# download if we dont already have it
 				if not os.path.exists(fileName):
 					with open (fileName, 'wb') as outFile:
@@ -56,5 +65,3 @@ else:
 	print('Invalid number of arguments. If using 2FA, your token is required. '
 		  'Otherwise, provide your email and password. See https://github.com/qwertyboy/emoji-dumper'
 		  ' for more details.')
-	
-
